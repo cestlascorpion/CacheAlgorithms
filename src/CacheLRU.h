@@ -31,18 +31,18 @@ private:
         ++val.hit;
     }
     inline void set_threshold(size_t threshold) {
-        m_threshold = threshold;
+        _threshold = threshold;
     }
     inline size_t get_threshold() const {
-        return m_threshold;
+        return _threshold;
     }
 
 private:
-    size_t m_threshold;
+    size_t _threshold;
 
 private:
-    std::list<std::pair<string, lru_value>> m_list;
-    std::map<string, std::list<std::pair<string, lru_value>>::iterator> m_hash;
+    std::list<std::pair<string, lru_value>> _list;
+    std::map<string, std::list<std::pair<string, lru_value>>::iterator> _hash;
 };
 
 #endif // CACHES_CACHELRU_H

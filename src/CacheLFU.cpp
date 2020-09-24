@@ -3,14 +3,14 @@
 using namespace std;
 
 CacheLFU::CacheLFU()
-    : m_list()
-    , m_hash() {}
+    : _list()
+    , _hash() {}
 
 CacheLFU::~CacheLFU() = default;
 
 RESULT CacheLFU::Get(const string &key, string &val) {
-    auto iter = m_hash.find(key);
-    if (iter == m_hash.end()) {
+    auto iter = _hash.find(key);
+    if (iter == _hash.end()) {
         return GET_FAIL;
     }
 
@@ -20,28 +20,28 @@ RESULT CacheLFU::Get(const string &key, string &val) {
 }
 
 RESULT CacheLFU::Set(const string &key, const string &val) {
-    auto iter = m_hash.find(key);
-    if (iter != m_hash.end()) {
+    auto iter = _hash.find(key);
+    if (iter != _hash.end()) {
         visit(iter, key);
         return SET_EXIST;
     }
 
     auto res = SET_NO_REC;
-    if (m_hash.size() == m_capacity) {
-        auto it = m_list.front().second.begin();
-        m_hash.erase(*it);
-        m_list.front().second.erase(it);
-        if (m_list.front().second.empty()) {
-            m_list.erase(m_list.begin());
+    if (_hash.size() == _capacity) {
+        auto it = _list.front().second.begin();
+        _hash.erase(*it);
+        _list.front().second.erase(it);
+        if (_list.front().second.empty()) {
+            _list.erase(_list.begin());
         }
         res = SET_AND_REC;
     }
-    if (m_list.empty() || m_list.front().first != 1) {
-        m_list.push_front({1, {key}});
+    if (_list.empty() || _list.front().first != 1) {
+        _list.push_front({1, {key}});
     } else {
-        m_list.front().second.push_back(key);
+        _list.front().second.push_back(key);
     }
-    m_hash[key] = {val, m_list.begin(), prev(m_list.front().second.end())};
+    _hash[key] = {val, _list.begin(), prev(_list.front().second.end())};
     return res;
 }
 
@@ -53,13 +53,13 @@ void CacheLFU::visit(map<string, lfu_info>::iterator iter, const string &key) {
     it_pair->second.erase(it_key);
     // it_pair成为指向下一个频次的pair链表的迭代器
     if (it_pair->second.empty()) {
-        it_pair = m_list.erase(it_pair); // 当前频次为空
+        it_pair = _list.erase(it_pair); // 当前频次为空
     } else {
         advance(it_pair, 1); // 频次加1
     }
     // 没有当前频次的链表 需要新建一个
-    if (it_pair == m_list.end() || it_pair->first != hit) {
-        it_pair = m_list.insert(it_pair, {hit, {key}});
+    if (it_pair == _list.end() || it_pair->first != hit) {
+        it_pair = _list.insert(it_pair, {hit, {key}});
     } else {
         it_pair->second.push_back(key);
     }

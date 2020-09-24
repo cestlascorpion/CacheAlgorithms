@@ -25,8 +25,8 @@ private:
     void visit(std::map<string, lfu_info>::iterator, const string &key);
 
 private:
-    std::list<std::pair<int, std::list<string>>> m_list;
-    std::map<string, lfu_info> m_hash;
+    std::list<std::pair<int, std::list<string>>> _list;
+    std::map<string, lfu_info> _hash;
 };
 
 #endif // CACHES_CACHELFU_H

@@ -28,10 +28,10 @@ public:
 
 public:
     inline void set_percent(size_t percent) {
-        m_percent = percent;
+        _percent = percent;
     }
     inline size_t get_percent() const {
-        return m_percent;
+        return _percent;
     }
 
 private:
@@ -40,11 +40,11 @@ private:
     }
 
 private:
-    size_t m_percent;
+    size_t _percent;
 
 private:
-    std::list<std::pair<string, q2_value>> m_list;
-    std::map<string, std::list<std::pair<string, q2_value>>::iterator> m_hash;
+    std::list<std::pair<string, q2_value>> _list;
+    std::map<string, std::list<std::pair<string, q2_value>>::iterator> _hash;
 };
 
 #endif // CACHES_CACHEQ2_H

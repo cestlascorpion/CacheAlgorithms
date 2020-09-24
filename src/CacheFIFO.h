@@ -15,8 +15,8 @@ public:
     RESULT Set(const string &key, const string &val) override;
 
 private:
-    std::list<std::pair<string, string>> m_list;
-    std::map<string, std::list<std::pair<string, string>>::iterator> m_hash;
+    std::list<std::pair<string, string>> _list;
+    std::map<string, std::list<std::pair<string, string>>::iterator> _hash;
 };
 
 #endif // CACHES_CACHEFIFO_H

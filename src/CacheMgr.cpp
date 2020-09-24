@@ -20,13 +20,13 @@ static uint32_t to_u32(const string &str) {
     return integer;
 }
 CacheMgr::CacheMgr()
-    : m_type(FIFO)
-    , m_size(EACH_MEMORY_MB - EACH_CONTROL_MB)
-    , m_value(EACH_VAL_MB)
-    , m_length(m_size / m_value) {}
+    : _type(FIFO)
+    , _size(EACH_MEMORY_MB - EACH_CONTROL_MB)
+    , _value(EACH_VAL_MB)
+    , _length(_size / _value) {}
 
 CacheMgr::~CacheMgr() {
-    for (auto *cache : m_cache) {
+    for (auto *cache : _cache) {
         if (cache != nullptr) {
             delete cache;
             cache = nullptr;
@@ -34,29 +34,29 @@ CacheMgr::~CacheMgr() {
     }
 }
 
-void CacheMgr::Init(size_t mem_MB, size_t slice_num, size_t val_MB, TYPE type, size_t extra) {
-    m_size = (mem_MB / slice_num) - EACH_CONTROL_MB;
-    m_length = m_size / val_MB;
-    m_type = type;
+void CacheMgr::Init(size_t me_MB, size_t slice_num, size_t val_MB, TYPE type, size_t extra) {
+    _size = (me_MB / slice_num) - EACH_CONTROL_MB;
+    _length = _size / val_MB;
+    _type = type;
 
-    m_cache.resize(slice_num);
-    for (auto &cache : m_cache) {
-        switch (m_type) {
+    _cache.resize(slice_num);
+    for (auto &cache : _cache) {
+        switch (_type) {
         case FIFO:
             cache = new CacheFIFO;
-            cache->SetCapacity(m_length);
+            cache->SetCapacity(_length);
             break;
         case LRU:
             cache = new CacheLRU;
-            cache->SetCapacity(m_length);
+            cache->SetCapacity(_length);
             break;
         case LFU:
             cache = new CacheLFU;
-            cache->SetCapacity(m_length);
+            cache->SetCapacity(_length);
             break;
         case TWOQ:
             cache = new CacheQ2(extra);
-            cache->SetCapacity(m_length);
+            cache->SetCapacity(_length);
             break;
         }
     }
@@ -80,15 +80,15 @@ double CacheMgr::Calculate(const string &file) {
         auto txt = regex_split(line, " ");
         string key = txt[1];
         string val = "val";
-        size_t idx = to_u32(key) % m_cache.size();
+        size_t idx = to_u32(key) % _cache.size();
 
         ++total;
         if (txt[0] == "Get") {
-            if (m_cache[idx]->Get(key, val) == GET_SUCCESS) {
+            if (_cache[idx]->Get(key, val) == GET_SUCCESS) {
                 ++hit;
             }
         } else {
-            if (m_cache[idx]->Set(key, val) == SET_EXIST) {
+            if (_cache[idx]->Set(key, val) == SET_EXIST) {
                 ++hit;
             }
         }
@@ -98,11 +98,11 @@ double CacheMgr::Calculate(const string &file) {
 }
 
 void CacheMgr::Release() {
-    for (auto *cache : m_cache) {
+    for (auto *cache : _cache) {
         if (cache != nullptr) {
             delete cache;
             cache = nullptr;
         }
     }
-    m_cache.clear();
+    _cache.clear();
 }
