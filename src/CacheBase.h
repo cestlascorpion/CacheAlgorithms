@@ -20,7 +20,7 @@ public:
 
 public:
     CacheBase()
-        : m_capacity(CACHE_MAX_K_NUM) {}
+        : _capacity(CACHE_MAX_K_NUM) {}
 
     virtual ~CacheBase() = default;
 
@@ -31,15 +31,15 @@ public:
 
 public:
     virtual void SetCapacity(size_t capacity) final {
-        m_capacity = capacity;
+        _capacity = capacity;
     }
 
     virtual size_t GetCapacity() const final {
-        return m_capacity;
+        return _capacity;
     }
 
 protected:
-    size_t m_capacity;
+    size_t _capacity;
 };
 
 #endif // CACHES_CACHEBASE_H

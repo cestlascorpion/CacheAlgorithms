@@ -18,17 +18,17 @@ public:
     ~CacheMgr();
 
 public:
-    void Init(size_t mem_MB, size_t slice_num, size_t val_MB, TYPE type, size_t extra);
+    void Init(size_t me_MB, size_t slice_num, size_t val_MB, TYPE type, size_t extra);
     double Calculate(const string &file);
     void Release();
 
 private:
-    TYPE m_type;
-    size_t m_size;
-    size_t m_value;
-    size_t m_length;
+    TYPE _type;
+    size_t _size;
+    size_t _value;
+    size_t _length;
 
-    std::vector<CacheBase *> m_cache;
+    std::vector<CacheBase *> _cache;
 };
 
 #endif // CACHES_CACHEMGR_H
