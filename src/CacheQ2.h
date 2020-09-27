@@ -1,15 +1,16 @@
-#ifndef CACHES_CACHEQ2_H
-#define CACHES_CACHEQ2_H
+#pragma once
 
 #include "CacheBase.h"
 #include <list>
 #include <map>
 
+namespace scorpion {
+
 struct q2_value {
-    string value;
+    std::string value;
     mutable size_t hit;
 
-    explicit q2_value(const string &val)
+    explicit q2_value(const std::string &val)
         : value(val)
         , hit(0) {}
 };
@@ -23,8 +24,8 @@ public:
     ~CacheQ2() override;
 
 public:
-    RESULT Get(const string &key, string &val) override;
-    RESULT Set(const string &key, const string &val) override;
+    RESULT Get(const std::string &key, std::string &val) override;
+    RESULT Set(const std::string &key, const std::string &val) override;
 
 public:
     inline void set_percent(size_t percent) {
@@ -43,8 +44,8 @@ private:
     size_t _percent;
 
 private:
-    std::list<std::pair<string, q2_value>> _list;
-    std::map<string, std::list<std::pair<string, q2_value>>::iterator> _hash;
+    std::list<std::pair<std::string, q2_value>> _list;
+    std::map<std::string, std::list<std::pair<std::string, q2_value>>::iterator> _hash;
 };
 
-#endif // CACHES_CACHEQ2_H
+} // namespace scorpion

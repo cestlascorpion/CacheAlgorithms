@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace scorpion {
+
 CacheQ2::CacheQ2(size_t percent)
     : _percent(percent)
     , _list()
@@ -55,3 +57,5 @@ RESULT CacheQ2::Set(const string &key, const string &val) {
     // _hash[key] = _list.insert(_list.end(), {key, value});
     return SET_AND_REC;
 }
+
+} // namespace scorpion

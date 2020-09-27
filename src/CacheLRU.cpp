@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace scorpion {
+
 CacheLRU::CacheLRU(size_t threshold)
     : _threshold(threshold)
     , _list()
@@ -52,3 +54,5 @@ RESULT CacheLRU::Set(const string &key, const string &val) {
     _hash[key] = _list.insert(_list.end(), {key, value});
     return SET_AND_REC;
 }
+
+} // namespace scorpion

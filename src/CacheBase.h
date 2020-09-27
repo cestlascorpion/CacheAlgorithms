@@ -1,10 +1,9 @@
-#ifndef CACHES_CACHEBASE_H
-#define CACHES_CACHEBASE_H
+#pragma once
 
 #include <cstdint>
 #include <string>
 
-using std::string;
+namespace scorpion {
 
 enum RESULT {
     GET_SUCCESS = 0,
@@ -25,9 +24,9 @@ public:
     virtual ~CacheBase() = default;
 
 public:
-    virtual RESULT Get(const string &key, string &val) = 0;
+    virtual RESULT Get(const std::string &key, std::string &val) = 0;
 
-    virtual RESULT Set(const string &key, const string &val) = 0;
+    virtual RESULT Set(const std::string &key, const std::string &val) = 0;
 
 public:
     virtual void SetCapacity(size_t capacity) final {
@@ -42,4 +41,4 @@ protected:
     size_t _capacity;
 };
 
-#endif // CACHES_CACHEBASE_H
+} // namespace scorpion

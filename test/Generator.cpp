@@ -1,8 +1,10 @@
-#include "../src/CacheMD5.h"
+#include "CacheMD5.h"
+
 #include <fstream>
 #include <iostream>
 
 using namespace std;
+using namespace scorpion;
 
 void generate_data(const string &in_file);
 

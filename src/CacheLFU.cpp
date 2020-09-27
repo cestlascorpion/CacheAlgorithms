@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace scorpion {
+
 CacheLFU::CacheLFU()
     : _list()
     , _hash() {}
@@ -67,3 +69,5 @@ void CacheLFU::visit(map<string, lfu_info>::iterator iter, const string &key) {
     iter->second.it_pair = it_pair;                    // 更新外层迭代器
     iter->second.it_key = prev(it_pair->second.end()); // 更新内层迭代器
 }
+
+} // namespace scorpion

@@ -1,12 +1,14 @@
-#ifndef CACHES_CACHEMGR_H
-#define CACHES_CACHEMGR_H
+#pragma once
 
 #include "CacheFIFO.h"
 #include "CacheLFU.h"
 #include "CacheLRU.h"
 #include "CacheMD5.h"
 #include "CacheQ2.h"
+
 #include <vector>
+
+namespace scorpion {
 
 class CacheMgr {
 public:
@@ -19,7 +21,7 @@ public:
 
 public:
     void Init(size_t me_MB, size_t slice_num, size_t val_MB, TYPE type, size_t extra);
-    double Calculate(const string &file);
+    double Calculate(const std::string &file);
     void Release();
 
 private:
@@ -31,4 +33,4 @@ private:
     std::vector<CacheBase *> _cache;
 };
 
-#endif // CACHES_CACHEMGR_H
+} // namespace scorpion

@@ -1,5 +1,9 @@
 #include "CacheMD5.h"
 
+using namespace std;
+
+namespace scorpion {
+
 /* Define the static member of MD5. */
 const un_char MD5::PADDING[64] = {0x80};
 const char MD5::HEX_NUMBERS[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
@@ -197,3 +201,5 @@ string MD5::to_str() {
     }
     return str;
 }
+
+} // namespace scorpion

@@ -1,15 +1,17 @@
-#ifndef CACHES_CACHELRU_H
-#define CACHES_CACHELRU_H
+#pragma once
 
 #include "CacheBase.h"
+
 #include <list>
 #include <map>
 
+namespace scorpion {
+
 struct lru_value {
-    string value;
+    std::string value;
     mutable size_t hit;
 
-    explicit lru_value(const string &val)
+    explicit lru_value(const std::string &val)
         : value(val)
         , hit(0) {}
 };
@@ -23,8 +25,8 @@ public:
     ~CacheLRU() override;
 
 public:
-    RESULT Get(const string &key, string &val) override;
-    RESULT Set(const string &key, const string &val) override;
+    RESULT Get(const std::string &key, std::string &val) override;
+    RESULT Set(const std::string &key, const std::string &val) override;
 
 private:
     inline void update_hit(const lru_value &val) const {
@@ -41,8 +43,8 @@ private:
     size_t _threshold;
 
 private:
-    std::list<std::pair<string, lru_value>> _list;
-    std::map<string, std::list<std::pair<string, lru_value>>::iterator> _hash;
+    std::list<std::pair<std::string, lru_value>> _list;
+    std::map<std::string, std::list<std::pair<std::string, lru_value>>::iterator> _hash;
 };
 
-#endif // CACHES_CACHELRU_H
+} // namespace scorpion

@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace scorpion {
+
 CacheFIFO::CacheFIFO()
     : _list()
     , _hash() {}
@@ -31,3 +33,5 @@ RESULT CacheFIFO::Set(const string &key, const string &val) {
     _hash[key] = _list.insert(_list.end(), {key, val});
     return SET_AND_REC;
 }
+
+} // namespace scorpion

@@ -1,8 +1,10 @@
 #include "CacheMgr.h"
+
 #include <iomanip>
 #include <iostream>
 
 using namespace std;
+using namespace scorpion;
 
 int main() {
     auto *manager = new CacheMgr;

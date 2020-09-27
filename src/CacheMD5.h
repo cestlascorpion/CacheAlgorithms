@@ -1,10 +1,7 @@
-#ifndef CACHES_CACHEMD5_H
-#define CACHES_CACHEMD5_H
+#pragma once
 
 #include <cstring>
 #include <string>
-
-using std::string;
 
 #define s11 7
 #define s12 12
@@ -55,6 +52,8 @@ using std::string;
         (a) += (b);                                                                                                    \
     }
 
+namespace scorpion {
+
 /* Define of un_char.*/
 typedef unsigned char un_char;
 /* Define of un_int. */
@@ -63,13 +62,13 @@ typedef unsigned int un_int;
 class MD5 {
 public:
     /* Construct a MD5 object with a string. */
-    explicit MD5(const string &message);
+    explicit MD5(const std::string &message);
 
     /* Generate md5 digest. */
     const un_char *get_digest();
 
     /* Convert digest to string value */
-    string to_str();
+    std::string to_str();
 
 private:
     /* Initialization the md5 object, processing another message block,
@@ -108,4 +107,4 @@ private:
     static const char HEX_NUMBERS[16];
 };
 
-#endif // CACHES_CACHEMD5_H
+} // namespace scorpion

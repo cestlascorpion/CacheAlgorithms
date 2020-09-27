@@ -1,9 +1,12 @@
 #include "CacheMgr.h"
 #include "CacheMD5.h"
+
 #include <fstream>
 #include <regex>
 
 using namespace std;
+
+namespace scorpion {
 
 static vector<string> regex_split(const string &str, const string &ch) {
     regex re{ch};
@@ -106,3 +109,5 @@ void CacheMgr::Release() {
     }
     _cache.clear();
 }
+
+} // namespace scorpion
